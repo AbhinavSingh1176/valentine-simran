@@ -17,19 +17,26 @@ function moveButton(button) {
 }
 
 // Add this new function to handle the "Yes" button clicks
-function handleYesClick() {
+function handleYesClick(button) {
     const questionText = document.getElementById('question1Text');
+    const sequences = [
+        "Oh..just like?",
+        "Oh, so we're just friends then?",
+        "Dang...",
+        "Ouch :/",
+        "This hurts...",
+        "At this point make me your bhaiya"
+    ];
     
-    if (yesClickCount < maxYesClicks) {
-        // Update the question text to the next message in the sequence
-        questionText.textContent = CONFIG.questions.first.yesSequence[yesClickCount];
+    if (yesClickCount < sequences.length) {
+        questionText.textContent = sequences[yesClickCount];
         yesClickCount++;
         
-        // If we've shown all messages, prepare to move to next question
-        if (yesClickCount === maxYesClicks) {
+        // If we've shown all messages, move to next question
+        if (yesClickCount === sequences.length) {
             setTimeout(() => {
                 showNextQuestion(2);
-            }, 2000); // Wait 2 seconds before moving to next question
+            }, 2000);
         }
     }
 }
@@ -41,7 +48,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Update button click handlers
     document.getElementById('yesBtn1').onclick = function() {
-        handleYesClick();
+    handleYesClick(this);
     };
     
     document.getElementById('noBtn1').onclick = function() {
